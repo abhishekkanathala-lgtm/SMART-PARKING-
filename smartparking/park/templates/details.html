@@ -1,0 +1,137 @@
+
+    <!DOCTYPE html>
+<html>
+<head>
+  <title>Vehicles Log</title>
+  {% load static %}
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-image: url('{% static "images/222.jpg" %}'); /* Replace with your image path */
+      background-size: cover;
+      background-position: center;
+    }
+    .container {
+      background-color: rgba(255, 255, 255, 0.8); /* Transparent white */
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      width: 400px;
+      max-width: 100%;
+      text-align: center;
+    }
+    h1 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+    .form-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #666;
+    }
+    input[type="text"], input[type="tel"], input[type="datetime-local"], input[type="number"] {
+      width: calc(100% - 22px);
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+    button[type="submit"] {
+      background-color: #4CAF50;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+    }
+    button[type="submit"]:hover {
+      background-color: #45a049;
+    }
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 20px;
+      border-radius: 8px;
+      display: none;
+      z-index: 1000;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Vehicles Log</h1>
+    <form id="vehiclesLogForm">
+      <div class="form-group">
+        <label for="vehicleNo">Vehicle No:</label>
+        <input type="text" id="vehicleNo" name="vehicleNo" required>
+      </div>
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+      </div>
+      <div class="form-group">
+        <label for="phoneNo">Phone No:</label>
+        <input type="tel" id="phoneNo" name="phoneNo" required>
+      </div>
+      <div class="form-group">
+        <label for="dateAndTime">Date and Time:</label>
+        <input type="datetime-local" id="dateAndTime" name="dateAndTime" required>
+      </div>
+      <div class="form-group">
+        <label for="duration">Duration (in hours):</label>
+        <input type="number" id="duration" name="duration" required>
+      </div>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <div class="popup" id="popupMessage">
+    <p>Slot Reserved!</p>
+  </div>
+
+  <script>
+    // Set the default value of the date and time input field to the current date and time
+    const currentDateAndTime = new Date();
+    const formattedDateAndTime = currentDateAndTime.toISOString().slice(0, 16); // Format YYYY-MM-DDTHH:mm
+
+    document.getElementById("dateAndTime").value = formattedDateAndTime;
+
+    // Form submission handling
+    document.getElementById("vehiclesLogForm").addEventListener("submit", function(event) {
+      event.preventDefault(); // Prevent the default form submission
+      // Here you can add your form handling logic, like sending the data to a server or displaying a confirmation message
+      showPopupMessage();
+      // Optionally, you can reset the form after submission
+      this.reset();
+    });
+
+    // Function to show popup message
+    function showPopupMessage() {
+      const popup = document.getElementById("popupMessage");
+      popup.style.display = "block";
+      setTimeout(function() {
+        popup.style.display = "none";
+        // Redirect to home page after popup disappears
+        window.location.href = "thankyou"; // Replace with your home page URL
+      }, 2000); // Hide after 2 seconds (2000 milliseconds)
+    }
+  </script>
+</body>
+</html>
